@@ -22,7 +22,7 @@ fun TopPageBar(navController: NavController) {
         elevation = 2.dp
     ){
         Row(
-            modifier = Modifier.padding(start = 2.dp, end = 5.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 5.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -30,12 +30,12 @@ fun TopPageBar(navController: NavController) {
             Text(
                 text = "Home",
                 style = TextStyle(
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp
                 )
             )
 
-        IconButton(onClick = { navController.navigate(Screen.Profile.route) }) {
+            IconButton(onClick = { navController.navigate(Screen.Setting.route) }) {
 
                 Image(
                     imageVector = Icons.Default.Settings,

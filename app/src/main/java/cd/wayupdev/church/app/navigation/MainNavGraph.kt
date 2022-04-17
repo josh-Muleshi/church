@@ -12,12 +12,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import cd.wayupdev.church.ui.screen.favorite.FavoriteScreen
 import cd.wayupdev.church.ui.screen.home.HomeScreen
-import cd.wayupdev.okhand.ui.screens.message.MessageScreen
-import cd.wayupdev.okhand.ui.screens.notifications.NotificationScreen
-import cd.wayupdev.okhand.ui.screens.profile.ProfileScreen
-import cd.wayupdev.okhand.ui.screens.search.SearchScreen
-import cd.wayupdev.okhand.ui.screens.setting.SettingScreen
+import cd.wayupdev.church.ui.screen.message.MessageScreen
+import cd.wayupdev.church.ui.screen.motifications.NotificationScreen
+import cd.wayupdev.church.ui.screen.setting.SettingScreen
 
 @Composable
 fun MainNavGraph() {
@@ -49,20 +48,17 @@ fun MainNavGraph() {
                 composable(route = Screen.Home.route) {
                     HomeScreen(navController)
                 }
-                composable(route = Screen.Search.route) {
-                    SearchScreen(navController)
+                composable(route = Screen.Favorite.route) {
+                    FavoriteScreen()
                 }
                 composable(route = Screen.Notifications.route) {
-                    NotificationScreen(navController)
+                    NotificationScreen()
                 }
                 composable(route = Screen.Message.route) {
-                    MessageScreen(navController)
-                }
-                composable(route = Screen.Profile.route) {
-                    ProfileScreen(navController)
+                    MessageScreen()
                 }
                 composable(route = Screen.Setting.route) {
-                    SettingScreen(navController)
+                    SettingScreen()
                 }
             }
         }

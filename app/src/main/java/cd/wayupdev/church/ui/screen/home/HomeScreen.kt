@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import cd.wayupdev.church.ui.screen.home.component.TopPageBar
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -22,12 +23,8 @@ fun HomeScreen(navController: NavController) {
     }
     Scaffold(
         topBar = {
-            //TopPageBar(navController, user = Data)
-        },
-        floatingActionButtonPosition = FabPosition.End,
-        floatingActionButton = { FloatingActionButton(onClick = {}, backgroundColor = MaterialTheme.colors.primary){
-            Icon(imageVector = Icons.Default.Add, contentDescription = null)
-        }}
+            TopPageBar(navController)
+        }
     ){
         Text(text = "josh Muleshi",modifier = Modifier.padding(16.dp), color = Color.Black)
     }
