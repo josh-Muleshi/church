@@ -14,7 +14,7 @@ import cd.wayupdev.church.ui.screen.topAppBar.AppBar
 fun FavoriteScreen() {
     Scaffold(
         topBar = {
-            AppBar("Favorite")
+            AppBar("Favorite ")
         }
     ){
         Text(text = "Notification Screen",modifier = Modifier.padding(16.dp), color = Color.Black)
