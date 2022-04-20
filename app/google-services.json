@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "273114507534",
+    "project_id": "church-8e041",
+    "storage_bucket": "church-8e041.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273114507534:android:e757dba356c78c41914f5f",
+        "android_client_info": {
+          "package_name": "cd.wayupdev.church"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "273114507534-l37beuf800tihmphk68fhus2rbpdcncc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cd.wayupdev.church",
+            "certificate_hash": "1cac8e4c212fd817bb80637ab069c469851d7939"
+          }
+        },
+        {
+          "client_id": "273114507534-r8nvsgpi07dcadk6drivpon9eo8lsl9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiqp89DXbVE2djFUeJDiiappfrhzYZxp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "273114507534-r8nvsgpi07dcadk6drivpon9eo8lsl9e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
