@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Church</string>
+    <string name="version">"Version 1.0"</string>
+    <string name="developed">Developed by</string>
+    <string name="developer">Josh MULESHI</string>
+    <string name="email">jmuleshi2@gmail.com</string>
 </resources>

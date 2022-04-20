@@ -16,7 +16,7 @@ import cd.wayupdev.church.ui.screen.favorite.FavoriteScreen
 import cd.wayupdev.church.ui.screen.home.HomeScreen
 import cd.wayupdev.church.ui.screen.message.MessageScreen
 import cd.wayupdev.church.ui.screen.motifications.NotificationScreen
-import cd.wayupdev.church.ui.screen.setting.SettingScreen
+import cd.wayupdev.church.ui.screen.settings.SettingScreen
 
 @Composable
 fun MainNavGraph() {
@@ -58,7 +58,7 @@ fun MainNavGraph() {
                     MessageScreen()
                 }
                 composable(route = Screen.Setting.route) {
-                    SettingScreen()
+                    SettingScreen(navController)
                 }
             }
         }
