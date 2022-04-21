@@ -22,6 +22,7 @@ import cd.wayupdev.church.R
 import cd.wayupdev.church.app.navigation.Screen
 import cd.wayupdev.church.ui.screen.about.business.AboutState
 import cd.wayupdev.church.ui.screen.about.business.AboutViewModel
+import cd.wayupdev.church.ui.screen.settings.componant.AppBarScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -34,7 +35,7 @@ fun AboutScreen(navController: NavHostController,aboutViewModel: AboutViewModel 
 
     Scaffold(
         topBar = {
-            //AppBarScreen(navController,ScreenName = "About us")
+            AppBarScreen(navController,ScreenName = "About us")
         }
     ){
         Column(

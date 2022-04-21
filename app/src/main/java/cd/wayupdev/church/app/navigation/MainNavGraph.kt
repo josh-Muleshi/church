@@ -65,7 +65,7 @@ fun MainNavGraph() {
                 composable(route = Screen.About.route) {
                     AboutScreen(navController)
                 }
-                composable(route = Screen.About.route) {
+                composable(route = Screen.Auth.route) {
                     AuthScreen(navController)
                 }
             }
