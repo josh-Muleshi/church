@@ -12,6 +12,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import cd.wayupdev.church.ui.screen.about.AboutScreen
+import cd.wayupdev.church.ui.screen.auth.AuthScreen
 import cd.wayupdev.church.ui.screen.favorite.FavoriteScreen
 import cd.wayupdev.church.ui.screen.home.HomeScreen
 import cd.wayupdev.church.ui.screen.message.MessageScreen
@@ -60,8 +62,13 @@ fun MainNavGraph() {
                 composable(route = Screen.Setting.route) {
                     SettingScreen(navController)
                 }
+                composable(route = Screen.About.route) {
+                    AboutScreen(navController)
+                }
+                composable(route = Screen.About.route) {
+                    AuthScreen(navController)
+                }
             }
         }
     )
-
 }
