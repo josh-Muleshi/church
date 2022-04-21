@@ -13,7 +13,7 @@ sealed class Screen(val route: String, val label: String = "", val icon: ImageVe
     object Message : Screen("Message", "Message", Icons.Default.Send)
     object PostDetail : Screen("postDetail")
     object About : Screen("aboutus")
-    object Auth : Screen("aboutus")
+    object Auth : Screen("auth")
     object AddPost : Screen("addPost")
     object Setting : Screen("setting")
     object Login : Screen("login")
