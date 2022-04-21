@@ -17,9 +17,12 @@ import androidx.navigation.NavHostController
 import cd.wayupdev.church.app.navigation.Screen
 import cd.wayupdev.church.ui.screen.auth.business.AuthState
 import cd.wayupdev.church.ui.screen.auth.business.AuthViewModel
+import cd.wayupdev.church.ui.screen.auth.componant.CustomAlertDialog
 
 @Composable
 fun AuthScreen(navController: NavHostController, viewModel: AuthViewModel = hiltViewModel()) {
+
+    CustomAlertDialog(navController)
 
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
