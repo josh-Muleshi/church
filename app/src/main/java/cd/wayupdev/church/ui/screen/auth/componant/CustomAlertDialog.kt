@@ -1,31 +1,27 @@
 package cd.wayupdev.church.ui.screen.auth.componant
 
-import android.graphics.Paint
 import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.Warning
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import cd.wayupdev.church.R
 import cd.wayupdev.church.app.navigation.Screen
 import cd.wayupdev.church.ui.screen.auth.business.AuthState
 
@@ -70,7 +66,7 @@ fun CustomAlertDialog(state: AuthState,navController: NavHostController){
                 TextButton(
                     onClick = {
                         openDialog.value = false
-                        navController.navigate(Screen.About.route)
+                        navController.navigate(Screen.Home.route)
                     }) {
                     Text(text = "cancel", color = MaterialTheme.colors.primary, fontSize = 16.sp,)
                 }
@@ -80,11 +76,6 @@ fun CustomAlertDialog(state: AuthState,navController: NavHostController){
         )
     }
 }
-
-
-
-
-
 
 @Composable
 fun AlertButton(isLoading: Boolean, buttonColor: Color, onClick : (isLoading: Boolean) -> Unit) {
