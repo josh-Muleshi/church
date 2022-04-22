@@ -1,4 +1,4 @@
-package cd.wayupdev.mzr.data.repository
+package cd.wayupdev.church.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await

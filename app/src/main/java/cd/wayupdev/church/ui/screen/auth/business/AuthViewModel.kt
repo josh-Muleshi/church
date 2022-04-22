@@ -3,7 +3,7 @@ package cd.wayupdev.church.ui.screen.auth.business
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cd.wayupdev.mzr.data.repository.AdminRepository
+import cd.wayupdev.church.data.repository.AdminRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
