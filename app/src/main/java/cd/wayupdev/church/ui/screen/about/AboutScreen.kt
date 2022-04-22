@@ -67,7 +67,7 @@ fun AboutScreen(navController: NavHostController,aboutViewModel: AboutViewModel 
                 }
             }){
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    painter = painterResource(id = R.drawable.ic_bible),
                     contentDescription = "",
                     modifier = Modifier
                         .size(100.dp)
@@ -113,7 +113,6 @@ fun AboutScreen(navController: NavHostController,aboutViewModel: AboutViewModel 
                 color = Color.Black,
                 fontStyle = FontStyle.Italic
             )
-
         }
     }
 }
