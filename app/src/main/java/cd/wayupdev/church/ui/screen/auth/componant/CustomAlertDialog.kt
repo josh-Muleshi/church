@@ -2,17 +2,19 @@ package cd.wayupdev.church.ui.screen.auth.componant
 
 import android.graphics.Paint
 import android.widget.Toast
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.List
+import androidx.compose.material.icons.rounded.Warning
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,27 +27,28 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import cd.wayupdev.church.R
 import cd.wayupdev.church.app.navigation.Screen
+import cd.wayupdev.church.ui.screen.auth.business.AuthState
 
 @Composable
-fun CustomAlertDialog(navController: NavHostController){
+fun CustomAlertDialog(state: AuthState,navController: NavHostController){
 
     val context = LocalContext.current
     val openDialog = remember { mutableStateOf(true) }
+
+    val buttonColor by animateColorAsState(
+        targetValue = Color.Red,
+        animationSpec = tween(durationMillis = 1000)
+    )
 
     if (openDialog.value)
     {
         AlertDialog(
             onDismissRequest = { openDialog.value = false },
             title = {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_alt),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                        .size(200.dp),
-                    alignment = Alignment.TopCenter
-                ) },
+
+                AlertButton(isLoading = state.isLoading, buttonColor = buttonColor) { isLoading ->
+                    state.isLoading
+                } },
             text = { Text(
                 text = "Only for admin please",
                 color = Color.Black,
@@ -75,5 +78,69 @@ fun CustomAlertDialog(navController: NavHostController){
             backgroundColor = Color.White,
             contentColor = Color.White
         )
+    }
+}
+
+
+
+
+
+
+@Composable
+fun AlertButton(isLoading: Boolean, buttonColor: Color, onClick : (isLoading: Boolean) -> Unit) {
+
+    val infiniteTransition = rememberInfiniteTransition()
+    val buttonRadius by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.3f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    val shadowRadius by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.3f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    val slowShadowRadius by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.3f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2100, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
+
+        Surface(shape = CircleShape,modifier = Modifier
+            .size(150.dp * shadowRadius)
+            .align(Alignment.Center), color = buttonColor.copy(alpha = 0.2f), content = {})
+
+        Surface(shape = CircleShape,modifier = Modifier
+            .size(120.dp * slowShadowRadius)
+            .align(Alignment.Center), color = buttonColor.copy(alpha = 0.2f), content = {})
+
+        Surface(shape = CircleShape,modifier = Modifier
+            .size(100.dp * slowShadowRadius)
+            .align(Alignment.Center), color = buttonColor.copy(alpha = 0.2f), content = {})
+
+        Surface(color = buttonColor,shape = CircleShape,modifier = Modifier
+            .size(150.dp / buttonRadius)
+            .align(Alignment.Center)
+            .clickable {
+                onClick.invoke(isLoading)
+            } ) {
+
+            Icon(imageVector = Icons.Rounded.Warning, contentDescription = null, tint = Color.White, modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp))
+        }
     }
 }

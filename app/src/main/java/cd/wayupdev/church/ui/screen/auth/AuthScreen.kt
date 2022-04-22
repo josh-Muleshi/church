@@ -22,10 +22,10 @@ import cd.wayupdev.church.ui.screen.auth.componant.CustomAlertDialog
 @Composable
 fun AuthScreen(navController: NavHostController, viewModel: AuthViewModel = hiltViewModel()) {
 
-    CustomAlertDialog(navController)
-
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    CustomAlertDialog(state,navController)
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
