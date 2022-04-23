@@ -3,5 +3,6 @@
     <string name="version">"Version 1.0"</string>
     <string name="developed">Developed by</string>
     <string name="developer">Webox connect</string>
+    <string name="team">Our team</string>
     <string name="email">weboxconnectInfo@gmail.com</string>
 </resources>
