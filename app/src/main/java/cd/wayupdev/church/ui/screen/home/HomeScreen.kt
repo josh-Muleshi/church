@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -137,6 +138,23 @@ fun ItemUi(post: Post, selectedItem: (Post)->(Unit)) {
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
+                Spacer(modifier = Modifier.height(4.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp, top = 10.dp)
+                        .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
+                        .border(width = 1.dp, color = MaterialTheme.colors.primary, RoundedCornerShape(corner = CornerSize(10.dp)))
+                        .background(color = Color.Transparent)
+                        .padding(2.dp),
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(
+                        text = "Annonce",
+                        fontSize = 17.sp,
+                        color = MaterialTheme.colors.primary
+                    )
+                }
             }
         }
     }
@@ -147,8 +165,7 @@ fun ItemShowImage(post: Post) {
     Box(
         modifier = Modifier
             .height(200.dp)
-            .fillMaxWidth(),
-        contentAlignment = Alignment.TopCenter
+            .fillMaxWidth()
     ) {
         GlideImage(
             imageModel = post.imageUrl,
@@ -157,8 +174,25 @@ fun ItemShowImage(post: Post) {
                 .height(200.dp)
                 .fillMaxWidth()
         )
+        Box(
+            modifier = Modifier
+                .padding(8.dp)
+                .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
+                .background(color = Color.White)
+                .padding(start = 8.dp, end = 8.dp)
+                .align(Alignment.BottomEnd)
+        ){
+            Row {
+                Image(painterResource(id = R.drawable.ic_date), contentDescription = "date")
+                Text(
+                    text = post.date,
+                    fontSize = 17.sp
+                )
+            }
+        }
         BottomShadow(post)
     }
+
 }
 
 @Composable
@@ -183,20 +217,6 @@ fun BottomShadow(post: Post) {
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
-                    .background(color = Color.White)
-                    .padding(start = 8.dp, end = 8.dp)
-            ){
-                Row {
-                    Image(painterResource(id = R.drawable.ic_date), contentDescription = "date")
-                    Text(
-                        text = post.date,
-                        fontSize = 17.sp
-                    )
-                }
-            }
             Box(
                 modifier = Modifier
                     .size(35.dp)
