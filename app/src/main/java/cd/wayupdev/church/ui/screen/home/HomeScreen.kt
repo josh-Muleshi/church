@@ -173,7 +173,7 @@ fun BottomShadow(post: Post) {
                     )
                 )
             )
-            .height(80.dp)
+            .height(60.dp)
             .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ){
@@ -185,8 +185,7 @@ fun BottomShadow(post: Post) {
         ) {
             Box(
                 modifier = Modifier
-                    .size(35.dp)
-                    .clip(CircleShape)
+                    .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
                     .background(color = Color.White)
                     .padding(start = 8.dp, end = 8.dp)
             ){
@@ -198,12 +197,13 @@ fun BottomShadow(post: Post) {
                     )
                 }
             }
-
             Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(corner = CornerSize(50.dp)))
+                    .size(35.dp)
+                    .clip(CircleShape)
                     .background(color = Color.White)
-                    .padding(start = 8.dp, end = 8.dp)
+                    .padding(start = 8.dp, end = 8.dp),
+                contentAlignment = Alignment.Center
             ){
                 Image(imageVector = Icons.Default.Favorite, contentDescription = "date")
             }
