@@ -4,10 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import cd.wayupdev.church.ui.screen.splash.AnimatedSplashScreen
 
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
+fun SetupNavGraph() {
+
+    val navController = rememberNavController()
+
     NavHost(navController = navController, startDestination = Screen.Splash.route){
         composable(route = Screen.Splash.route){
             AnimatedSplashScreen(navController)

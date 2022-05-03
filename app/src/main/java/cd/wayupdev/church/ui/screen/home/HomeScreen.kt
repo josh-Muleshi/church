@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import cd.wayupdev.church.data.model.Post
 import cd.wayupdev.church.ui.screen.home.business.HomeState
 import cd.wayupdev.church.ui.screen.home.business.HomeViewModel
@@ -44,13 +44,15 @@ import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import cd.wayupdev.church.R
+import cd.wayupdev.church.app.navigation.Screen
 import cd.wayupdev.church.ui.theme.Blue_box
 import cd.wayupdev.church.ui.theme.Red_box
-import cd.wayupdev.church.ui.theme.Yellow_box
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
-fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+
+    val navController = rememberNavController()
 
     val context = LocalContext.current
 
