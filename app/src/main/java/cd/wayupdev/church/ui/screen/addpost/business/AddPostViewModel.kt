@@ -3,6 +3,7 @@ package cd.wayupdev.church.ui.screen.addpost.business
 import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,15 +23,16 @@ class AddPostViewModel @Inject constructor(private val postRepository: PostRepos
     var title by mutableStateOf("")
     var desc by mutableStateOf("")
     var date by mutableStateOf("")
+    var category by mutableStateOf("")
 
     private val _addPostState = MutableStateFlow<AddPostState>(AddPostState.Uninitialized)
     val addPostState: StateFlow<AddPostState>
         get() = _addPostState
 
-    fun addPost(title: String, description: String, date: String,  uri: Uri) = viewModelScope.launch {
+    fun addPost(title: String, description: String, date: String, category: String ,uri: Uri) = viewModelScope.launch {
         _addPostState.emit(AddPostState.Loading)
         try {
-            postRepository.add(title, description, date, uri)
+            postRepository.add(title, description, date, category, uri)
             _addPostState.emit(AddPostState.Success)
         } catch (t: Throwable) {
             _addPostState.emit(AddPostState.Error(t.message.toString()))

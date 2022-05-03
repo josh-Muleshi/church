@@ -98,7 +98,7 @@ fun AddPostScreen(navController : NavHostController, viewModel: AddPostViewModel
                     ),
                     shape = RoundedCornerShape(corner = CornerSize(12.dp)),
                     onClick = {
-                        imageUri?.let { viewModel.addPost(viewModel.title, viewModel.desc, viewModel.date, it) }
+                        imageUri?.let { viewModel.addPost(viewModel.title, viewModel.desc, viewModel.date, viewModel.category, it) }
                         navController.navigate(Screen.Home.route)
                     }
                 ) {
@@ -124,6 +124,9 @@ fun AddPostScreen(navController : NavHostController, viewModel: AddPostViewModel
                     unfocusedIndicatorColor = MaterialTheme.colors.background
                 )
             )
+
+            MyContent()
+
             TextField(
                 value = viewModel.desc,
                 onValueChange = { viewModel.desc = it },
@@ -140,8 +143,6 @@ fun AddPostScreen(navController : NavHostController, viewModel: AddPostViewModel
                     unfocusedIndicatorColor = MaterialTheme.colors.background
                 )
             )
-
-            MyContent()
 
             val launcher = rememberLauncherForActivityResult(
                 contract =
@@ -187,14 +188,13 @@ fun AddPostScreen(navController : NavHostController, viewModel: AddPostViewModel
     }
 }
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
-fun MyContent(){
+fun MyContent(viewModel: AddPostViewModel = hiltViewModel()){
 
     var mExpanded by remember { mutableStateOf(false) }
 
     val categories = listOf("Predication", "Annonce")
-
-    var mSelectedText by remember { mutableStateOf("") }
 
     var mTextFieldSize by remember { mutableStateOf(Size.Zero)}
 
@@ -213,7 +213,7 @@ fun MyContent(){
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
-        Text(text = "Categorie ${":" + mSelectedText}")
+        Text(text = "Categorie : ${viewModel.category}")
         Icon(
             icon,
             "contentDescription",
@@ -229,7 +229,7 @@ fun MyContent(){
         ) {
             categories.forEach { label ->
                 DropdownMenuItem(onClick = {
-                    mSelectedText = label
+                    viewModel.category = label
                     mExpanded = false
                 }) {
                     Text(text = label)

@@ -152,7 +152,7 @@ fun ItemUi(post: Post, selectedItem: (Post)->(Unit)) {
                     contentAlignment = Alignment.Center
                 ){
                     Text(
-                        text = "Annonce",
+                        text = post.category,
                         fontSize = 17.sp,
                         color = MaterialTheme.colors.primary
                     )
