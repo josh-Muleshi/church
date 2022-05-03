@@ -3,6 +3,9 @@ package cd.wayupdev.church.ui.screen.home
 import android.app.Activity
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -41,6 +44,9 @@ import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import cd.wayupdev.church.R
+import cd.wayupdev.church.ui.theme.Blue_box
+import cd.wayupdev.church.ui.theme.Red_box
+import cd.wayupdev.church.ui.theme.Yellow_box
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
@@ -87,7 +93,6 @@ fun DisplayItShow(posts: ArrayList<Post>, viewModel: HomeViewModel, selectedItem
             refreshing = false
         }
     }
-
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = refreshing),
         onRefresh = {
@@ -112,6 +117,15 @@ fun DisplayItShow(posts: ArrayList<Post>, viewModel: HomeViewModel, selectedItem
 
 @Composable
 fun ItemUi(post: Post, selectedItem: (Post)->(Unit)) {
+
+    val visible by remember {
+        mutableStateOf(post.category != "")
+    }
+
+    var extended by remember {
+        mutableStateOf(false)
+    }
+
     Card(
         modifier = Modifier
             .padding(7.dp)
@@ -121,15 +135,17 @@ fun ItemUi(post: Post, selectedItem: (Post)->(Unit)) {
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable { selectedItem(post) },
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.Center
         ) {
-
             ItemShowImage(post = post)
 
             Column(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .animateContentSize()
+                    .clickable { selectedItem(post)
+                        extended = !extended}
                     .padding(10.dp)
             ) {
                 Text(text = post.title, fontSize = 17.sp, fontWeight = FontWeight.Bold)
@@ -137,25 +153,32 @@ fun ItemUi(post: Post, selectedItem: (Post)->(Unit)) {
                 Text(
                     text = post.description,
                     style = MaterialTheme.typography.body1,
-                    maxLines = 3,
+                    maxLines = if (extended) Int.MAX_VALUE else 3,
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp, top = 10.dp)
-                        .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
-                        .border(width = 1.dp, color = MaterialTheme.colors.primary, RoundedCornerShape(corner = CornerSize(10.dp)))
-                        .background(color = Color.Transparent)
-                        .padding(2.dp),
-                    contentAlignment = Alignment.Center
-                ){
-                    Text(
-                        text = post.category,
-                        fontSize = 17.sp,
-                        color = MaterialTheme.colors.primary
-                    )
+
+                val color by animateColorAsState(if (post.category == "Predication") Red_box else Blue_box)
+                AnimatedVisibility(visible) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 16.dp, end = 16.dp, top = 10.dp)
+                            .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
+                            .border(
+                                width = 1.dp,
+                                color = color,
+                                RoundedCornerShape(corner = CornerSize(10.dp))
+                            )
+                            .background(color = color)
+                            .padding(2.dp),
+                        contentAlignment = Alignment.Center
+                    ){
+                        Text(
+                            text = post.category,
+                            fontSize = 17.sp,
+                        )
+                    }
                 }
             }
         }
@@ -194,7 +217,6 @@ fun ItemShowImage(post: Post) {
         }
         BottomShadow(post)
     }
-
 }
 
 @Composable

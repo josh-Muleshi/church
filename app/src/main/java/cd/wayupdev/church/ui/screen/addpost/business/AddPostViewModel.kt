@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class AddPostViewModel @Inject constructor(private val postRepository: PostRepository) : ViewModel() {
