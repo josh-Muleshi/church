@@ -9,5 +9,6 @@ data class Post(
     val description: String = "",
     val imageUrl: String = "",
     val date: String = "",
+    val category: String = "",
     val createdAt: Date? = null
 )

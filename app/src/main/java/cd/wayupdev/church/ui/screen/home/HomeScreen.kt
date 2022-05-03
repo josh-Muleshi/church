@@ -47,11 +47,13 @@ import cd.wayupdev.church.R
 fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
     val context = LocalContext.current
-    val posts by viewModel.data.collectAsState()
 
     BackHandler(enabled = true) {
         (context as? Activity)?.finish()
     }
+
+    val posts by viewModel.data.collectAsState()
+
     Scaffold(
         topBar = {
             TopPageBar(navController)

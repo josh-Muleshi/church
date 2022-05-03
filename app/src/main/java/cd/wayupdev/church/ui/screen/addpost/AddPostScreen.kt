@@ -194,7 +194,7 @@ fun ShowDatePicker(viewModel: AddPostViewModel = hiltViewModel()){
     val datePickerDialog = DatePickerDialog(
         context,
         { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-            viewModel.date = "$dayOfMonth . $month . $year"
+            viewModel.date = "$dayOfMonth . ${month+1} . $year"
         }, year, month, day
     )
 
