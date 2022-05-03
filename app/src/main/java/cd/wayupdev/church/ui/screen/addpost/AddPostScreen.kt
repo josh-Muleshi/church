@@ -7,27 +7,39 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import cd.wayupdev.church.R
@@ -128,6 +140,9 @@ fun AddPostScreen(navController : NavHostController, viewModel: AddPostViewModel
                     unfocusedIndicatorColor = MaterialTheme.colors.background
                 )
             )
+
+            MyContent()
+
             val launcher = rememberLauncherForActivityResult(
                 contract =
                 ActivityResultContracts.GetContent()
@@ -166,6 +181,58 @@ fun AddPostScreen(navController : NavHostController, viewModel: AddPostViewModel
                     }
                     Spacer(modifier = Modifier.padding(16.dp))
                     ShowDatePicker()
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MyContent(){
+
+    var mExpanded by remember { mutableStateOf(false) }
+
+    val categories = listOf("Predication", "Annonce")
+
+    var mSelectedText by remember { mutableStateOf("") }
+
+    var mTextFieldSize by remember { mutableStateOf(Size.Zero)}
+
+    val icon = if (mExpanded)
+        Icons.Filled.KeyboardArrowUp
+    else
+        Icons.Filled.KeyboardArrowDown
+
+    Row(
+        Modifier
+            .padding(20.dp)
+            .fillMaxWidth()
+            .onGloballyPositioned { coordinates ->
+                mTextFieldSize = coordinates.size.toSize()
+            },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Text(text = "Categorie ${":" + mSelectedText}")
+        Icon(
+            icon,
+            "contentDescription",
+            Modifier
+                .clickable { mExpanded = !mExpanded }
+        )
+
+        DropdownMenu(
+            expanded = mExpanded,
+            onDismissRequest = { mExpanded = false },
+            modifier = Modifier
+                .width(with(LocalDensity.current){mTextFieldSize.width.toDp()})
+        ) {
+            categories.forEach { label ->
+                DropdownMenuItem(onClick = {
+                    mSelectedText = label
+                    mExpanded = false
+                }) {
+                    Text(text = label)
                 }
             }
         }
