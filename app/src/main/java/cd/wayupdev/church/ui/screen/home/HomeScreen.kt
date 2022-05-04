@@ -44,7 +44,6 @@ import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import cd.wayupdev.church.R
-import cd.wayupdev.church.app.navigation.Screen
 import cd.wayupdev.church.ui.theme.Blue_box
 import cd.wayupdev.church.ui.theme.Red_box
 
