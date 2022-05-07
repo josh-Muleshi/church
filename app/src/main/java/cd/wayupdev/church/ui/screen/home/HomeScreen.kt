@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import cd.wayupdev.church.data.model.Post
 import cd.wayupdev.church.ui.screen.home.business.HomeState
@@ -49,15 +50,13 @@ import cd.wayupdev.church.ui.theme.Red_box
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
-
-    val navController = rememberNavController()
+fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
     val context = LocalContext.current
 
-    BackHandler(enabled = true) {
-        (context as? Activity)?.finish()
-    }
+//    BackHandler(enabled = true) {
+//        (context as? Activity)?.finish()
+//    }
 
     val posts by viewModel.data.collectAsState()
 

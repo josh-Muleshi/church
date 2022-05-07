@@ -52,7 +52,7 @@ fun MainNavGraph() {
         content = { contentPadding ->
             NavHost(modifier = Modifier.padding(contentPadding), navController = navController, startDestination = Screen.Home.route) {
                 composable(route = Screen.Home.route) {
-                    HomeScreen()
+                    HomeScreen(navController)
                 }
                 composable(route = Screen.Favorite.route) {
                     FavoriteScreen()
