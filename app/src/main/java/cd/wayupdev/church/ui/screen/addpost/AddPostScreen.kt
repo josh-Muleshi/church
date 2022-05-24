@@ -209,7 +209,8 @@ fun MyContent(viewModel: AddPostViewModel = hiltViewModel()){
             .fillMaxWidth()
             .onGloballyPositioned { coordinates ->
                 mTextFieldSize = coordinates.size.toSize()
-            },
+            }
+            .padding(start = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
