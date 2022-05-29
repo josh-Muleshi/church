@@ -85,7 +85,6 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hilt
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun DisplayItShow(posts: ArrayList<Post>, viewModel: HomeViewModel, selectedItem: (Post)->(Unit)) {
-
     var refreshing by remember { mutableStateOf(false) }
 
     LaunchedEffect(refreshing) {
@@ -107,7 +106,7 @@ fun DisplayItShow(posts: ArrayList<Post>, viewModel: HomeViewModel, selectedItem
             modifier = Modifier.fillMaxSize(),
             content = {
                 items(count = posts.size) {
-                    ItemUi(posts[it], selectedItem = { post ->
+                    ItemUi(post = posts[it], selectedItem = { post ->
                         selectedItem.invoke(post)
                     })
                 }
@@ -117,18 +116,9 @@ fun DisplayItShow(posts: ArrayList<Post>, viewModel: HomeViewModel, selectedItem
 }
 
 @Composable
-fun ItemUi(post: Post, selectedItem: (Post)->(Unit)) {
-
-    val visible by remember {
-        mutableStateOf(post.category != "")
-    }
-
-    var extended by remember {
-        mutableStateOf(false)
-    }
-
+fun ItemUi(modifier: Modifier = Modifier, post: Post, selectedItem: (Post)->(Unit)) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .padding(7.dp)
             .fillMaxWidth(),
         elevation = 2.dp,
@@ -140,58 +130,72 @@ fun ItemUi(post: Post, selectedItem: (Post)->(Unit)) {
             verticalArrangement = Arrangement.Center
         ) {
             ItemShowImage(post = post)
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .animateContentSize()
-                    .clickable {
-                        selectedItem(post)
-                        extended = !extended
-                    }
-                    .padding(10.dp)
-            ) {
-                Text(text = post.title, fontSize = 17.sp, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = post.description,
-                    style = MaterialTheme.typography.body1,
-                    maxLines = if (extended) Int.MAX_VALUE else 3,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-
-                val color by animateColorAsState(if (post.category == "Predication") Red_box else Blue_box)
-                AnimatedVisibility(visible) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 16.dp, end = 16.dp, top = 10.dp)
-                            .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
-                            .border(
-                                width = 1.dp,
-                                color = color,
-                                RoundedCornerShape(corner = CornerSize(10.dp))
-                            )
-                            .background(color = color)
-                            .padding(2.dp),
-                        contentAlignment = Alignment.Center
-                    ){
-                        Text(
-                            text = post.category,
-                            fontSize = 17.sp,
-                        )
-                    }
-                }
-            }
+            CartBody(post = post, selectedItem = selectedItem)
         }
     }
 }
 
 @Composable
-fun ItemShowImage(post: Post) {
+fun CartBody(modifier: Modifier = Modifier, post: Post, selectedItem: (Post)->(Unit)) {
+    var extended by remember {
+        mutableStateOf(false)
+    }
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .animateContentSize()
+            .clickable {
+                selectedItem(post)
+                extended = !extended
+            }
+            .padding(10.dp)
+    ) {
+        Text(text = post.title, fontSize = 17.sp, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = post.description,
+            style = MaterialTheme.typography.body1,
+            maxLines = if (extended) Int.MAX_VALUE else 3,
+            overflow = TextOverflow.Ellipsis
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        PostCategory(post = post)
+    }
+}
+
+@Composable
+fun PostCategory(post: Post) {
+    val visible by remember {
+        mutableStateOf(post.category != "")
+    }
+    val color by animateColorAsState(if (post.category == "Predication") Red_box else Blue_box)
+    AnimatedVisibility(visible) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp, top = 10.dp)
+                .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
+                .border(
+                    width = 1.dp,
+                    color = color,
+                    RoundedCornerShape(corner = CornerSize(10.dp))
+                )
+                .background(color = color)
+                .padding(2.dp),
+            contentAlignment = Alignment.Center
+        ){
+            Text(
+                text = post.category,
+                fontSize = 17.sp,
+            )
+        }
+    }
+}
+
+@Composable
+fun ItemShowImage(modifier: Modifier = Modifier, post: Post) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .height(200.dp)
             .fillMaxWidth()
     ) {
@@ -223,9 +227,9 @@ fun ItemShowImage(post: Post) {
 }
 
 @Composable
-fun BottomShadow() {
+fun BottomShadow(modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
