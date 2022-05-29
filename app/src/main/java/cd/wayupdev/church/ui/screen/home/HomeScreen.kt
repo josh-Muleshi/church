@@ -1,8 +1,6 @@
 package cd.wayupdev.church.ui.screen.home
 
-import android.app.Activity
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -15,7 +13,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
@@ -29,24 +30,24 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import cd.wayupdev.church.R
 import cd.wayupdev.church.data.model.Post
 import cd.wayupdev.church.ui.screen.home.business.HomeState
 import cd.wayupdev.church.ui.screen.home.business.HomeViewModel
 import cd.wayupdev.church.ui.screen.home.component.TopPageBar
 import cd.wayupdev.church.ui.theme.Black_ic
+import cd.wayupdev.church.ui.theme.Blue_box
+import cd.wayupdev.church.ui.theme.Red_box
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
-import cd.wayupdev.church.R
-import cd.wayupdev.church.ui.theme.Blue_box
-import cd.wayupdev.church.ui.theme.Red_box
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
@@ -144,8 +145,10 @@ fun ItemUi(post: Post, selectedItem: (Post)->(Unit)) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .animateContentSize()
-                    .clickable { selectedItem(post)
-                        extended = !extended}
+                    .clickable {
+                        selectedItem(post)
+                        extended = !extended
+                    }
                     .padding(10.dp)
             ) {
                 Text(text = post.title, fontSize = 17.sp, fontWeight = FontWeight.Bold)
@@ -215,12 +218,12 @@ fun ItemShowImage(post: Post) {
                 )
             }
         }
-        BottomShadow(post)
+        BottomShadow()
     }
 }
 
 @Composable
-fun BottomShadow(post: Post) {
+fun BottomShadow() {
     Box(
         modifier = Modifier
             .background(
@@ -253,4 +256,10 @@ fun BottomShadow(post: Post) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun ScHome() {
+    BottomShadow()
 }
