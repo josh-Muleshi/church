@@ -45,6 +45,8 @@ import androidx.navigation.NavHostController
 import cd.wayupdev.church.R
 import cd.wayupdev.church.app.navigation.Screen
 import cd.wayupdev.church.ui.screen.addpost.business.AddPostViewModel
+import cd.wayupdev.church.ui.screen.addpost.components.MyContent
+import cd.wayupdev.church.ui.screen.addpost.components.ShowDatePicker
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.*
@@ -143,10 +145,8 @@ fun AddPostScreen(navController : NavHostController, viewModel: AddPostViewModel
                     unfocusedIndicatorColor = MaterialTheme.colors.background
                 )
             )
-
             val launcher = rememberLauncherForActivityResult(
-                contract =
-                ActivityResultContracts.GetContent()
+                contract = ActivityResultContracts.GetContent()
             ) { uri: Uri? ->
                 imageUri = uri
             }
@@ -188,101 +188,4 @@ fun AddPostScreen(navController : NavHostController, viewModel: AddPostViewModel
     }
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
-@Composable
-fun MyContent(viewModel: AddPostViewModel = hiltViewModel()){
 
-    var mExpanded by remember { mutableStateOf(false) }
-
-    val categories = listOf("Predication", "Annonce")
-
-    var mTextFieldSize by remember { mutableStateOf(Size.Zero)}
-
-    val icon = if (mExpanded)
-        Icons.Filled.KeyboardArrowUp
-    else
-        Icons.Filled.KeyboardArrowDown
-
-    Row(
-        Modifier
-            .padding(20.dp)
-            .fillMaxWidth()
-            .onGloballyPositioned { coordinates ->
-                mTextFieldSize = coordinates.size.toSize()
-            }
-            .padding(start = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start
-    ) {
-        Text(text = "Categorie : ${viewModel.category}")
-        Icon(
-            icon,
-            "contentDescription",
-            Modifier
-                .clickable { mExpanded = !mExpanded }
-        )
-
-        DropdownMenu(
-            expanded = mExpanded,
-            onDismissRequest = { mExpanded = false },
-            modifier = Modifier
-                .width(with(LocalDensity.current){mTextFieldSize.width.toDp()})
-        ) {
-            categories.forEach { label ->
-                DropdownMenuItem(onClick = {
-                    viewModel.category = label
-                    mExpanded = false
-                }) {
-                    Text(text = label)
-                }
-            }
-        }
-    }
-}
-
-@OptIn(
-    ExperimentalMaterialApi::class,
-    ExperimentalCoroutinesApi::class
-)
-@Composable
-fun ShowDatePicker(viewModel: AddPostViewModel = hiltViewModel()){
-
-    val context = LocalContext.current
-
-    val year: Int
-    val month : Int
-    val day: Int
-
-    val calendar = Calendar.getInstance()
-    year = calendar.get(Calendar.YEAR)
-    month = calendar.get(Calendar.MONTH)
-    day = calendar.get(Calendar.DAY_OF_MONTH)
-    calendar.time = Date()
-
-    val datePickerDialog = DatePickerDialog(
-        context,
-        { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-            viewModel.date = "$dayOfMonth . ${month+1} . $year"
-        }, year, month, day
-    )
-
-    Card(modifier = Modifier.background(Color.Unspecified), elevation = 8.dp, onClick = {
-        datePickerDialog.show()
-    }) {
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
-                .background(color = Color.White)
-                .padding(25.dp),
-        ) {
-            Row{
-                Image(painterResource(id = R.drawable.ic_date), contentDescription = "date")
-                Text(
-                    text = viewModel.date,
-                    fontSize = 17.sp,
-                    color = Color.Black
-                )
-            }
-        }
-    }
-}
