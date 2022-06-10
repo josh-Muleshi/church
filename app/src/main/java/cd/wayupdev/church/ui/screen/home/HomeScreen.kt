@@ -1,6 +1,8 @@
 package cd.wayupdev.church.ui.screen.home
 
+import android.app.Activity
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -55,9 +57,9 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hilt
 
     val context = LocalContext.current
 
-//    BackHandler(enabled = true) {
-//        (context as? Activity)?.finish()
-//    }
+    /*BackHandler(enabled = true) {
+        (context as? Activity)?.finish()
+    }*/
 
     val posts by viewModel.data.collectAsState()
 
@@ -84,7 +86,7 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hilt
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
-fun DisplayItShow(posts: ArrayList<Post>, viewModel: HomeViewModel, selectedItem: (Post)->(Unit)) {
+fun DisplayItShow(posts: ArrayList<Post>,viewModel: HomeViewModel, selectedItem: (Post)->(Unit)) {
     var refreshing by remember { mutableStateOf(false) }
 
     LaunchedEffect(refreshing) {

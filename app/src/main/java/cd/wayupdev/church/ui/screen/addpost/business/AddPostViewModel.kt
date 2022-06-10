@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cd.wayupdev.church.data.repository.PostRepository
+import cd.wayupdev.church.ui.screen.motifications.business.NotificationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +24,10 @@ class AddPostViewModel @Inject constructor(private val postRepository: PostRepos
     var desc by mutableStateOf("")
     var date by mutableStateOf("")
     var category by mutableStateOf("")
+
+    private val _data = MutableStateFlow<NotificationState>(NotificationState.Uninitialized)
+    val data: StateFlow<NotificationState>
+        get() = _data
 
     private val _addPostState = MutableStateFlow<AddPostState>(AddPostState.Uninitialized)
     val addPostState: StateFlow<AddPostState>

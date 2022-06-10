@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1654588772104.xml" value="0.32037037037037036" />
+        <entry key="../../../../layout/compose-model-1654606195368.xml" value="0.32037037037037036" />
+        <entry key="../../../../layout/compose-model-1654606614181.xml" value="1.0" />
         <entry key="app/src/main/java/cd/wayupdev/church/ui/screen/home/HomeScreen.kt" value="0.33" />
       </map>
     </option>
