@@ -10,23 +10,26 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import cd.wayupdev.church.data.model.Post
+import cd.wayupdev.church.ui.screen.motifications.business.NotificationState
 import cd.wayupdev.church.ui.screen.motifications.business.NotificationViewModel
 import cd.wayupdev.church.ui.screen.topAppBar.AppBar
 import com.google.accompanist.insets.imePadding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @Composable
 fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel()) {
 
-    val contacts by viewModel.data.collectAsState()
+    val posts by viewModel.data.collectAsState()
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -48,22 +51,22 @@ fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel()) {
             sheetState = bottomSheetState,
             sheetShape = RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp),
             sheetContent = {
-                AddContactScreen(onSubmit = { name, phone ->
-                    coroutineScope.launch {
-                        bottomSheetState.hide()
-                    }
-                    viewModel.addContact(name, phone)
-                })
+//                AddContactScreen(onSubmit = { name, phone ->
+//                    coroutineScope.launch {
+//                        bottomSheetState.hide()
+//                    }
+//                    //viewModel.addContact(name, phone)
+//                })
             },
             modifier = Modifier.imePadding()
         ) {
-            Crossfade(targetState = contacts) {
+            Crossfade(targetState = posts) {
                 when (it) {
-                    is ContactsState.Success -> {
+                    is NotificationState.Success -> {
                         ListSection(
-                            (contacts as ContactsState.Success).contacts,
+                            (posts as NotificationState.Success).post,
                             onContactDelete = { uid ->
-                                viewModel.delete(uid)
+                               // viewModel.delete(uid)
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar("Contact supprimé")
                                 }
@@ -143,3 +146,4 @@ fun ContactItem(post: Post, onSwipe: (uid: String) -> Unit) {
         }
     )
 }
+
